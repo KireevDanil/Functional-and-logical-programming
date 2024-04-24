@@ -65,3 +65,14 @@ father(X) :- father(Y,X), write(Y). %father(+X) - выводит отца X.
 
 wife(X,Y) :- mother(X,Z),father(Y,Z). %wife(?X,+Y) - +X проверяет является ли X женой Y. -X выводит жену Y.
 wife(X) :- wife(Y,X), write(Y). %wife(+X) - выводит жену X.
+
+%Задание - 3
+sister(X,Y) :- woman(X), parent(F,X), parent(F,Y), man(F), not(X==Y). %sister(?X,+Y) - +X проверяет является ли X сестрой Y.
+grand_da(X,Y) :- woman(X),parent(Z,X),parent(Y,Z). %grand_da(?X,+Y) - +X проверяет является ли X внучкой Y. -X - выводит внучку Y.
+grand_dats(X) :- grand_da(Y,X),write(Y),nl,fail. %grand_dats(+X) - выводит всех внучек X.
+grand_pa_and_da(X,Y) :- grand_da(Y,X). %grand_pa_and_da(+X,+Y) - проверяет является ли X дедушкой Y.
+grand_pa_and_da(X,Y) :- grand_da(X,Y). %grand_pa_and_da(+X,+Y) - проверяет является ли Y внучкой X.
+
+aunt(X,Y) :- parent(P,Y),sister(X,P). %aunt(?X,+Y) - +X проверяет является ли X тётей Y. -X выводит тётю Y.
+aunts(X) :- aunt(Y,X),write(Y),nl,fail.
+
