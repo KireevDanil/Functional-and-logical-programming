@@ -58,3 +58,10 @@ brother(X,Y) :- man(X),parent(F,X),parent(F,Y), man(F). %brother(?X,+Y) - про
 brothers(X) :- brother(Y,X), not(X==Y), write(Y), nl, fail. %brothers(+X) - вывод всех братьев X.
 b_s(X, Y) :- parent(Z, X), parent(Z, Y), man(Z), not(X==Y). %b_s(+X, ?Y) - +Y проверяет являются ли X и Y братьями, или сестрами, или братом и сестрой; -Y вывод брата или сестры X.
 b_s(X) :- b_s(X, Y), not(X==Y), write(Y), nl, fail. %b_s(+X) - вывод всех братьев и сестёр X
+
+%Задание - 2
+father(X,Y) :- parent(X,Y), man(X). %father(?X,+Y) - +X проверяет является ли X отцом Y. -X выводит отца Y.
+father(X) :- father(Y,X), write(Y). %father(+X) - выводит отца X.
+
+wife(X,Y) :- mother(X,Z),father(Y,Z). %wife(?X,+Y) - +X проверяет является ли X женой Y. -X выводит жену Y.
+wife(X) :- wife(Y,X), write(Y). %wife(+X) - выводит жену X.
