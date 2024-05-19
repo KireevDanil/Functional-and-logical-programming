@@ -114,9 +114,19 @@ type_drive(toyota_hilux_8_rest,2).
 type_drive(tesla_plaid, 2).
 type_drive(zeekr_001,2).
 
+kolvo_ls(vaz_2107,1).
+kolvo_ls(vaz_2105,0).
+
+vaz2112(vaz_2113,0).
+vaz2112(vaz_21123,1).
+
 % check_result(+Result) -  предикат проверяет длину листа с результатами и если количество элементов в результате равно 1, 
 % то он извлекает этот единственный элемент и выводит его на экран. Если нет, то предикат завершается без вывода на экран
 check_result(Result):-length(Result, Count), (Count =:= 1 -> [Answer | _] = Result, write(Answer), fail; true).
+
+% проверяет наличие элемента в списке
+in_list([El|_], El):-!.
+in_list([_|T], El):- in_list(T, El).
 
 start:-
     question1(X1),
@@ -137,4 +147,17 @@ start:-
 
     question5(X5),
     findall(Y, (european(Y, X1),body_type(Y,X2),engine_type(Y,X3),speed(Y,X4),type_drive(Y,X5)), Result5),
-    check_result(Result5).
+    check_result(Result5),
+
+     %vaz_2107 и vaz_2105 не распознаны после 5 вопроса, проверяем конкретно их
+    (in_list(Result5,vaz_2107),in_list(Result5, vaz_2105)->
+             question6(X6),
+             findall(Y, (kolvo_ls(Y,X6)), Result6),
+    check_result(Result6);true),
+
+    %vaz_2113 и vaz_21123 не распознаны после 5 вопроса, проверяем конкретно их
+    (in_list(Result5,vaz_2113),in_list(Result5, vaz_21123)->
+             question7(X7),
+             findall(Y, (vaz2112(Y,X7)), Result7),
+    check_result(Result7),true;false).
+
