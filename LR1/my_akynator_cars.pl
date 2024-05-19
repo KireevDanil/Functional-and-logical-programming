@@ -114,6 +114,27 @@ type_drive(toyota_hilux_8_rest,2).
 type_drive(tesla_plaid, 2).
 type_drive(zeekr_001,2).
 
+% check_result(+Result) -  предикат проверяет длину листа с результатами и если количество элементов в результате равно 1, 
+% то он извлекает этот единственный элемент и выводит его на экран. Если нет, то предикат завершается без вывода на экран
+check_result(Result):-length(Result, Count), (Count =:= 1 -> [Answer | _] = Result, write(Answer), fail; true).
 
-pr:-	question1(X1),question2(X2),question3(X3),question4(X4),question5(X5),
-european(X,X1),body_type(X,X2),engine_type(X,X3),speed(X,X4),type_drive(X,X5),write(X)
+start:-
+    question1(X1),
+    findall(Y, (european(Y, X1)), Result1),
+    check_result(Result1),
+
+    question2(X2),
+    findall(Y, (european(Y, X1),body_type(Y,X2)), Result2),
+    check_result(Result2),
+
+    question3(X3),
+    findall(Y, (european(Y, X1),body_type(Y,X2),engine_type(Y,X3)), Result3),
+    check_result(Result3),
+
+    question4(X4),
+    findall(Y, (european(Y, X1),body_type(Y,X2),engine_type(Y,X3),speed(Y,X4)), Result4),
+    check_result(Result4),
+
+    question5(X5),
+    findall(Y, (european(Y, X1),body_type(Y,X2),engine_type(Y,X3),speed(Y,X4),type_drive(Y,X5)), Result5),
+    check_result(Result5).
